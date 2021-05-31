@@ -1,0 +1,112 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../elements/simpleux-container/simpleux-container.html">
+<link rel="import" href="../../elements/simpleux-input/simpleux-input.html">
+<link rel="import" href="../../elements/simpleux-product/simpleux-product.html">
+
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="simpleux-submission" attributes="selected name error" center layout vertical>
+
+    <template>
+        <simpleux-container progress="50" selected="{{selected}}" name="{{name}}">
+            <link rel="stylesheet" href="simpleux-submission.css">
+
+            <paper-toast text="{{ error }}" autoCloseDisabled="true" opened="{{ error && error.length > 0 }}">
+                <div on-tap="{{handleSubmit}}">Retry</div>
+            </paper-toast>
+
+            <core-ajax auto="false"
+                       name="formSubmitter"
+                       id="formSubmitter"
+                       url="http://0.0.0.0:8080/api/v1/register-interest" handleAs="json"
+                       on-core-response="{{handleAPIResponse}}" on-core-error="{{handleAPIError}}"
+                       method="POST"></core-ajax>
+
+            <simpleux-product class="mb-50 pb-10 bb-1" product="Product Name" currency="£" price="19.99"
+                              frequency="month">Cancel anytime. <a href="#">Terms</a> apply.
+            </simpleux-product>
+
+            <simpleux-header cross-fade>About you</simpleux-header>
+
+            <form flex layout vertical name="submission" cross-fade class="{{ {'pb-50': error && error.length > 0} | tokenList }}">
+                <div flex>
+                    <div class="mb-10">
+                        <simpleux-input id="name" type="text" label="Name"></simpleux-input>
+                        <simpleux-input id="email" type="email" label="Email"></simpleux-input>
+                    </div>
+                </div>
+
+                <div layout horizontal center>
+                    <paper-button id="submit" raised class="primary no-margin full-width" id="primaryBtn"
+                                  on-tap="{{handleSubmit}}" disabled?="{{isValid == false}}">Register Interest
+                    </paper-button>
+                </div>
+            </form>
+        </simpleux-container>
+    </template>
+
+    <script>
+
+      Polymer('simpleux-submission', {
+
+        publish: {
+          isValid: false,
+          error: ''
+        },
+
+        eventDelegates: {
+          'changed': 'validityChecker',
+        },
+
+        validityChecker: function() {
+          this.error = '';
+
+          this.isValid = (
+              this.$.name.value.length > 0 &&
+              this.$.email.value.length > 0 &&
+              this.$.name.isValid &&
+              this.$.email.isValid
+          );
+        },
+
+        handleSubmit: function() {
+          this.error = '';
+
+          this.$.formSubmitter.params = JSON.stringify({
+            name: this.$.name.value,
+            email: this.$.email.value,
+          });
+
+          this.$.formSubmitter.go();
+
+          this.fire('goto', {id: 'loading'});
+        },
+
+        handleAPIResponse: function(response) {
+          this.fire('goto', {id: 'success'});
+        },
+
+        handleAPIError: function(response) {
+          var errors = response.detail.response.response.errors;
+
+          this.error = response.detail.response.response.errorMessage;
+
+          if (Array.isArray(errors) && errors.length > 0) {
+            for (var i = 0; i < errors.length; i++) {
+              var error = errors[i];
+
+              if (this.$[error.name]) {
+                this.$[error.name].isValid = false;
+                this.$[error.name].error = error.error;
+              }
+            }
+          }
+
+          this.fire('goto', {id: 'submission'});
+        },
+      });
+
+    </script>
+
+</polymer-element>

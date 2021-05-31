@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+
+<link rel="import" href="../../elements/simpleux-container/simpleux-container.html">
+<link rel="import" href="../../elements/simpleux-product/simpleux-product.html">
+
+<polymer-element name="simpleux-loading" attributes="selected name" center layout vertical>
+
+    <template>
+        <simpleux-container noPadding="true" selected="{{selected}}" name="{{name}}">
+            <div flex layout vertical>
+                <div flex layout vertical center center-justified cross-fade>
+                    <paper-spinner aria-hidden="true" class="blue" active></paper-spinner>
+                    <div class="text-colour-muted mt-10 text-small">Submitting your request. Please wait.</div>
+                </div>
+                <div flex>
+                    <simpleux-product class="bt-1 p-20 no-padding-bottom" product="Product Name" currency="£" price="19.99" frequency="month">Cancel anytime. <a href="#">Terms</a> apply.</simpleux-product>
+                </div>
+            </div>
+        </simpleux-container>
+    </template>
+
+    <script>
+
+      Polymer('simpleux-loading', {});
+
+    </script>
+
+</polymer-element>

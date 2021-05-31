@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../elements/simpleux-container/simpleux-container.html">
+<link rel="import" href="../../elements/simpleux-product/simpleux-product.html">
+
+<polymer-element name="simpleux-banner" attributes="selected name" center layout vertical>
+
+    <template>
+        <style>
+            .banner {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+        </style>
+        <simpleux-container noPadding="true" selected="{{selected}}" name="{{name}}">
+            <div flex layout vertical>
+                <img flex class="banner" src="/static-assets/banner.gif" alt="Banner" width="300px" height="450px" />
+                <simpleux-product class="bt-1 p-20 no-padding-bottom" product="Product Name" currency="£" price="19.99" frequency="month">Cancel anytime. <a href="#">Terms</a> apply.</simpleux-product>
+                <div class="p-20">
+                    <paper-button raised class="primary no-margin full-width mb-20" id="primaryBtn" on-tap="{{gotoSubmission}}" disabled?="{{ parentElement && name !== parentElement.selected }}" cross-fade>BUY NOW</paper-button>
+                </div>
+            </div>
+        </simpleux-container>
+    </template>
+
+    <script>
+
+      Polymer('simpleux-banner', {
+        gotoSubmission: function() {
+          this.fire('goto', { id: 'submission' });
+        }
+      });
+
+    </script>
+
+</polymer-element>

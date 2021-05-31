@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PolymerJS Review</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="elements.html">
+    <link href="demo-styles.css" rel="stylesheet" type="text/css">
+</head>
+<body unresolved>
+<div id="demo-toolbar">
+    <p>Use following buttons to navigate around demo banner.</p>
+    <ul>
+        <li><button onclick="gotoScreen('banner')" type="button">Screen 1 - Banner</button></li>
+        <li><button onclick="gotoScreen('submission')" type="button">Screen 2 - Form</button></li>
+        <li><button onclick="gotoScreen('loading')" type="button">Screen 3 - Loading</button></li>
+        <li><button onclick="gotoScreen('success')" type="button">Screen 4 - Success</button></li>
+        <li>&ndash;</li>
+        <li><button onclick="gotoError()" type="button">Toggle Error</button></li>
+        <li><button onclick="gotoAutofill()" type="button">Autofill Submission</button></li>
+    </ul>
+</div>
+<section class="demo-section">
+
+</section>
+<script>
+  var screenComponent = document.createElement('simpleux-app');
+  screenComponent.classList.add('demo-screen');
+
+  document.querySelector('.demo-section').appendChild(screenComponent);
+
+  function gotoScreen(screen) {
+    var submissionScreen = screenComponent.shadowRoot.querySelector('[name="submission"]');
+    submissionScreen.error = '';
+
+    screenComponent.selected = screen;
+  }
+
+  function gotoError() {
+    var submissionScreen = screenComponent.shadowRoot.querySelector('[name="submission"]');
+
+    screenComponent.selected = 'submission';
+    submissionScreen.error = submissionScreen.error ? '' : 'An error message';
+  }
+
+  function setValue(field, value) {
+    var submissionScreen = screenComponent.shadowRoot.querySelector('[name="submission"]');
+    var input = submissionScreen.shadowRoot.querySelector('[id="' + field + '"]');
+
+    input.shadowRoot.querySelector('paper-input-decorator').input.value= value;
+  }
+
+  function gotoAutofill() {
+    setValue('name', 'Test Name');
+    setValue('email', 'tester@gmail.com');
+
+    screenComponent.selected = 'submission';
+  }
+</script>
+</body>
+</html>

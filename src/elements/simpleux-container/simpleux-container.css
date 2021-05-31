@@ -1,0 +1,16 @@
+:host {
+    padding: 4px;
+
+    box-sizing: border-box;
+    font-family: RobotoDraft,serif;
+    overflow: hidden;
+    width: 100%;
+}
+
+paper-progress {
+    width: 100%;
+}
+
+paper-progress #activeProgress {
+    background-color: #000;
+}

@@ -1,0 +1,44 @@
+<link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css">
+<link href="../../bower_components/core-style/core-style.html" rel="import">
+<link href="../../bower_components/paper-toast/paper-toast.html" rel="import">
+<link href="../../bower_components/paper-progress/paper-progress.html" rel="import">
+<link href="../../bower_components/paper-shadow/paper-shadow.html" rel="import">
+
+<polymer-element attributes="product currency price frequency" hero hero-id="product" name="simpleux-product" noscript>
+
+    <template>
+        <style>
+            :host {
+                background: #fff;
+                box-sizing: border-box;
+                display: block;
+                width: 100%;
+                z-index: 1000;
+            }
+
+            sup {
+                font-size: 0.7em;
+                margin-right: 2px;
+            }
+
+            .month {
+                margin-left: 5px;
+            }
+        </style>
+
+        <div id="product">
+            <div class="mb-10" hide?="{{!product}}">
+                {{product}}
+            </div>
+            <div class="mb-5 heavy" flex horizontal layout>
+                <sup class="light">{{currency}}</sup>
+                <div>{{price}}</div>
+                <div class="month light" hide?="{{!frequency}}">/{{frequency}}</div>
+            </div>
+            <div class="text-small text-colour-muted light">
+                <content></content>
+            </div>
+        </div>
+    </template>
+
+</polymer-element>

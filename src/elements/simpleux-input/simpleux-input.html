@@ -1,0 +1,62 @@
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<polymer-element name="simpleux-input" attributes="label error">
+    <template>
+        <link rel="stylesheet" href="simpleux-input.css">
+
+        <paper-input-decorator
+                id="decorator"
+                label="{{label}}"
+                error="{{ error ? error : 'Invalid value' }}"
+                isInvalid="{{!isValid}}"
+                floatingLabel
+        >
+            <input id="input" name="{{name ? name : id}}" is="core-input" type="{{inputType}}" on-change="{{onChangeAction}}">
+        </paper-input-decorator>
+    </template>
+
+    <script>
+      Polymer('simpleux-input', {
+        inputType: '',
+
+        publish: {
+          type: '',
+          label: '',
+          isValid: true,
+          value: '',
+        },
+
+        observe: {
+          'type': 'updatePattern',
+        },
+
+        typeChanged: function() {
+          this.updatePattern();
+        },
+
+        isValidChanged: function() {
+          this.$.decorator.isInvalid = !this.isValid;
+        },
+
+        onChangeAction: function() {
+          this.value = this.$.input.value;
+          this.isValid = this.$.input.validity.valid;
+          this.fire('changed');
+        },
+
+        updatePattern: function() {
+          this.inputType = this.type;
+
+          switch (this.type) {
+            case 'name':
+              this.$.input.setAttribute('pattern', '^[a-z-A-Z-\\s]+');
+              this.inputType = 'text';
+              break;
+            default:
+              this.$.input.removeAttribute('pattern');
+          }
+        },
+      });
+
+    </script>
+</polymer-element>

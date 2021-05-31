@@ -1,0 +1,116 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>core-collapse-basic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../../bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="../../../bower_components/web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../simpleux-input.html">
+
+</head>
+<body>
+
+  <div>
+    <simpleux-input id="field" type="text" label="A Text field"></simpleux-input>
+    <simpleux-input id="email" type="email" label="Email"></simpleux-input>
+    <simpleux-input id="tel" type="tel" label="Telephone"></simpleux-input>
+    <simpleux-input id="name" type="name" label="Name"></simpleux-input>
+  </div>
+
+  <script>
+    function setValue(field, value) {
+      field.value = value;
+      field.dispatchEvent(new Event('change', {
+        bubbles: true
+      }));
+    }
+
+    suite('simpleux-input basic', function() {
+
+      test('should be able to specify label', function() {
+        var component = document.querySelector('#name');
+        assert.equal(component.label, 'Name');
+
+        component.label = 'A New Name';
+        assert.equal(component.label, 'A New Name');
+      });
+
+      test('should be able to specify custom error message', function(done) {
+        var component = document.querySelector('#name');
+        component.setAttribute('error', 'Custom error message');
+        component.isValid = false;
+
+        flush(function() {
+          var input = component.shadowRoot.querySelector('paper-input-decorator ').shadowRoot;
+          assert.equal(input.querySelector('[role=alert]').textContent, 'Custom error message');
+
+          done();
+        });
+      });
+
+      test('should reset error message on valid value entry', function(done) {
+        var component = document.querySelector('#name');
+        component.isValid = false;
+        setValue(component.$.input, 'Correct name');
+
+        flush(function() {
+          assert.isTrue(component.isValid);
+
+          done();
+        });
+      });
+
+      suite('[type=text]', function() {
+        var component, field;
+
+        setup(function() {
+          component = document.querySelector('#name');
+          field = component.$.input;
+        });
+
+        test('.isValid = false when invalid name entered', function() {
+          setValue(field, 'Hello!');
+          assert.isFalse(component.isValid);
+        });
+
+        test('.isValid = true when valid name entered', function() {
+          setValue(field, 'Hello');
+          assert.isTrue(component.isValid);
+        });
+      });
+
+      suite('[type=email]', function () {
+        var component, field;
+
+        setup(function() {
+          component = document.querySelector('#email');
+          field = component.$.input;
+        });
+
+        test('.isValid = false when invalid email entered', function() {
+          setValue(field, 'jpjp');
+          assert.isFalse(component.isValid);
+        });
+
+        test('.isValid = true when valid name entered', function() {
+          setValue(field, 'jp@jp.com');
+          assert.isTrue(component.isValid);
+        });
+      });
+    });
+
+  </script>
+
+</body>
+</html>

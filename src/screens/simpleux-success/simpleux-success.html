@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../elements/simpleux-container/simpleux-container.html">
+<link rel="import" href="../../elements/simpleux-product/simpleux-product.html">
+
+<polymer-element name="simpleux-success" attributes="selected name" center layout vertical>
+
+    <template>
+        <style>
+            .banner {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+        </style>
+        <simpleux-container noPadding="true" name="{{name}}">
+            <div flex layout vertical>
+                <div flex class="border-box p-20" cross-fade>
+                    <simpleux-header>Details submitted</simpleux-header>
+                    <p class="text-colour-muted light">
+                        Your interest has been registered. We’ll be in touch as soon as we launch!
+                    </p>
+                </div>
+                <div flex relative class="no-overflow" cross-fade>
+                    <img fit class="banner" src="/static-assets/banner.gif" alt="Banner" width="300px" height="450px" />
+                </div>
+                <simpleux-product class="bt-1 p-20" product="Product Name" currency="£" price="19.99" frequency="month">Cancel anytime. <a href="#">Terms</a> apply.</simpleux-product>
+            </div>
+        </simpleux-container>
+    </template>
+
+    <script>
+
+      Polymer('simpleux-success', {});
+
+    </script>
+
+</polymer-element>

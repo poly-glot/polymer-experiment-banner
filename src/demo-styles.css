@@ -1,0 +1,43 @@
+html, body {
+    background-color: #eeeeee;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.demo-section {
+    margin: 30px auto;
+    max-width: 300px;
+}
+
+.demo-screen {
+    display: block;
+    height: 600px;
+    margin: 0 auto;
+    width: 300px;
+}
+
+#demo-toolbar {
+    background: #000;
+    color: #fff;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+#demo-toolbar button {
+
+}
+
+#demo-toolbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#demo-toolbar ul li {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0;
+}

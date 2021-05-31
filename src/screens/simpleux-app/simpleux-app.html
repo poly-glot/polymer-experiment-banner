@@ -1,0 +1,75 @@
+<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-up.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/list-cascade.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/scale-up.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-from-right.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/hero-transition.html">
+
+<link rel="import" href="../../bower_components/core-media-query/core-media-query.html">
+
+<link rel="import" href="../simpleux-banner/simpleux-banner.html">
+<link rel="import" href="../simpleux-submission/simpleux-submission.html">
+<link rel="import" href="../simpleux-loading/simpleux-loading.html">
+<link rel="import" href="../simpleux-success/simpleux-success.html">
+
+
+<polymer-element name="simpleux-app" attributes="selected" center layout vertical>
+
+    <template>
+        <style>
+            core-animated-pages {
+                width: 100%;
+            }
+
+            core-animated-pages > * {
+                width: 100%;
+                height: 100%;
+            }
+
+            core-animated-pages > * > * {
+                height: 100%;
+            }
+        </style>
+
+            <core-animated-pages selected="{{selected}}" transitions="cross-fade cross-fade-delayed scale-up slide-up slide-up-offscreen slide-down tile-cascade hero-transition" flex auto on-core-animated-pages-transition-end="{{transitionEndAction}}" on-goto="{{ gotoAction }}">
+
+                <div name="splash">
+                    <div fit class="splash {{ {wide: wide} | tokenList }}" cross-fade></div>
+                </div>
+
+                <simpleux-banner  name="banner"></simpleux-banner>
+                <simpleux-submission  name="submission"></simpleux-submission>
+                <simpleux-loading  name="loading"></simpleux-loading>
+                <simpleux-success  name="success"></simpleux-success>
+
+                </section>
+            </core-animated-pages>
+
+            <core-media-query query="min-width: {{responsiveWidth}}" queryMatches="{{wide}}"></core-media-query>
+
+    </template>
+
+    <script>
+
+      Polymer('simpleux-app', {
+        publish: {
+          selected: 'banner',
+        },
+
+        eventDelegates: {
+          'goto': 'gotoAction',
+        },
+
+        gotoAction: function(ev) {
+          if (!ev.detail || !ev.detail.id) {
+            console.error('No main page id provided');
+            return false;
+          }
+
+          this.selected = ev.detail.id;
+        },
+      });
+
+    </script>
+
+</polymer-element>
