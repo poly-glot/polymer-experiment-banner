@@ -1,0 +1,32 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: "0.10"
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install -g bower
+          bower install
+          npm run build
+
+      - name: Build
+        run: npm run build
+
