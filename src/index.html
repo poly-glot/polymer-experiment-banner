@@ -11,13 +11,13 @@
 <div id="demo-toolbar">
     <p>Use following buttons to navigate around demo banner.</p>
     <ul>
-        <li><button onclick="gotoScreen('banner')" type="button">Screen 1 - Banner</button></li>
-        <li><button onclick="gotoScreen('submission')" type="button">Screen 2 - Form</button></li>
-        <li><button onclick="gotoScreen('loading')" type="button">Screen 3 - Loading</button></li>
-        <li><button onclick="gotoScreen('success')" type="button">Screen 4 - Success</button></li>
+        <li><button onclick="gotoScreen('banner')" type="button" data-cy="buttonHome">Screen 1 - Banner</button></li>
+        <li><button onclick="gotoScreen('submission')" type="button" data-cy="buttonForm">Screen 2 - Form</button></li>
+        <li><button onclick="gotoScreen('loading')" type="button" data-cy="buttonLoading">Screen 3 - Loading</button></li>
+        <li><button onclick="gotoScreen('success')" type="button" data-cy="buttonSuccess">Screen 4 - Success</button></li>
         <li>&ndash;</li>
-        <li><button onclick="gotoError()" type="button">Toggle Error</button></li>
-        <li><button onclick="gotoAutofill()" type="button">Autofill Submission</button></li>
+        <li><button onclick="gotoError()" type="button" data-cy="buttonError">Toggle Error</button></li>
+        <li><button onclick="gotoAutofill()" type="button" data-cy="buttonAutofill">Autofill Submission</button></li>
     </ul>
 </div>
 <section class="demo-section">

@@ -48,7 +48,7 @@ function onRequestHandler(request, response) {
     parseData();
   }
 
-  function parseData(next) {
+  function parseData() {
     if (request.method !== 'POST') {
       return handler();
     }

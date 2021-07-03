@@ -1,6 +1,10 @@
 # PolymerJS (0.5) Interactive Banner
 A year long experiment project started around 2014 to understand how PolymerJS can shape the future of Frontend Development.
 
+![CI/CD](https://github.com/poly-glot/polymer-experiment-banner/workflows/CI/CD/badge.svg)
+[![Cypress.io Dashboard](https://img.shields.io/badge/cypress-dashboard-brightgreen.svg)](https://dashboard.cypress.io/projects/qmfroe/runs)
+[![DeepScan grade](https://deepscan.io/api/teams/8408/projects/17767/branches/417966/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8408&pid=17767&bid=417966)
+
 # Opportunities
 - Maximize usability of controls across many projects & Reduce duplicate Backend effort to integrate Frontend work.
 - Produce branded marketing campaigns to install on various available channels with a single line of code.

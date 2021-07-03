@@ -20,13 +20,45 @@ jobs:
         with:
           node-version: "0.10"
 
-      - name: Install Dependencies
+      - name: Install Dependencies and Build
         run: |
           npm install
           npm install -g bower
           bower install
           npm run build
 
-      - name: Build
-        run: npm run build
+      - name: Temporarily save build direcotry
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-artifact
+          path: dist/
+          retention-days: 1
+
+  visual-testing:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Retrieve previously built dist
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-artifact
+          path: dist/
+
+      - name: Install Dependencies and Build
+        run: |
+          npm install serve@6.0.6 cypress
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          record: true
+          start: npm run start:serve
+          wait-on: 'http://localhost:5000'
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
