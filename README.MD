@@ -1,4 +1,4 @@
-# PolymerJS (0.5) Interactive Banner
+# PolymerJS (0.5) Interactive Banner ([Demo](https://polymer.junaid.guru) - Desktop Only)
 A year long experiment project started around 2014 to understand how PolymerJS can shape the future of Frontend Development.
 
 ![CI/CD](https://github.com/poly-glot/polymer-experiment-banner/workflows/CI/CD/badge.svg)
